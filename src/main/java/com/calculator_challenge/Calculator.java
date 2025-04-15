@@ -5,7 +5,7 @@ public class Calculator {
         if (input == null || input.isEmpty()) {
             return 0;
         }
-        String[] numbers = input.split(",");
+        String[] numbers = input.split("[,\n]");
         int sum = 0;
         for (String num : numbers) {
             try {

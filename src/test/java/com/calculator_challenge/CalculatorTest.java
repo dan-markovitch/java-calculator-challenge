@@ -50,4 +50,14 @@ public class CalculatorTest {
     void addThreeNumbersReturnsSum() {
         assertEquals(6, calculator.add("1,2,3"));
     }
+
+    @Test
+    void addNewlineDelimiterReturnsSum() {
+        assertEquals(6, calculator.add("1\n2,3"));
+    }
+
+    @Test
+    void addMixedDelimitersReturnsSum() {
+        assertEquals(10, calculator.add("1\n2\n3,4"));
+    }
 }
