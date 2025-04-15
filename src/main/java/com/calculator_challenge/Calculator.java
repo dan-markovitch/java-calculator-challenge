@@ -14,7 +14,19 @@ public class Calculator {
             return 0;
         }
 
-        String[] numbers = input.split("[,\n]");
+        String delimiter = "[,\n]";
+        String numbersPart = input;
+
+        // Check for single-character custom delimiter
+        if (input.startsWith("//")) {
+            int newlineIndex = input.indexOf('\n');
+            if (newlineIndex != -1 && newlineIndex > 2) {
+                delimiter = input.substring(2, newlineIndex);
+                numbersPart = input.substring(newlineIndex + 1);
+            }
+        }
+
+        String[] numbers = numbersPart.split(delimiter);
         StringBuilder negatives = new StringBuilder();
         var parsedNumbers = processor.parseNumbers(numbers, negatives);
 

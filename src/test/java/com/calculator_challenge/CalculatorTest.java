@@ -23,7 +23,7 @@ public class CalculatorTest {
 
     @Test
     void addTwoNumbersReturnsSum() {
-        assertEquals(3, calculator.add("1,2")); // Updated to use valid numbers
+        assertEquals(3, calculator.add("1,2"));
     }
 
     @Test
@@ -78,5 +78,15 @@ public class CalculatorTest {
     @Test
     void addMultipleLargeNumbersReturnsSumExcludingLarge() {
         assertEquals(2, calculator.add("2,1001,1002"));
+    }
+
+    @Test
+    void addCustomDelimiterReturnsSum() {
+        assertEquals(7, calculator.add("//#\n2#5"));
+    }
+
+    @Test
+    void addCustomDelimiterWithInvalidAndValidNumbersReturnsSum() {
+        assertEquals(102, calculator.add("//,\n2,ff,100"));
     }
 }
