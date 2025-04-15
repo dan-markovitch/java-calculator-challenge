@@ -1,5 +1,6 @@
 package com.calculator_challenge;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Calculator {
@@ -24,8 +25,19 @@ public class Calculator {
             int newlineIndex = input.indexOf('\n');
             if (newlineIndex != -1) {
                 String delimiterPart = input.substring(2, newlineIndex);
-                if (delimiterPart.startsWith("[") && delimiterPart.endsWith("]")) {
-                    delimiter = Pattern.quote(delimiterPart.substring(1, delimiterPart.length() - 1));
+                if (delimiterPart.startsWith("[")) {
+                    var delimiters = new ArrayList<String>();
+                    int start = 0;
+                    while (start < delimiterPart.length()) {
+                        if (delimiterPart.charAt(start) != '[') break;
+                        int end = delimiterPart.indexOf(']', start + 1);
+                        if (end == -1) break;
+                        delimiters.add(Pattern.quote(delimiterPart.substring(start + 1, end)));
+                        start = end + 1;
+                    }
+                    if (!delimiters.isEmpty()) {
+                        delimiter = String.join("|", delimiters);
+                    }
                 } else {
                     delimiter = Pattern.quote(delimiterPart);
                 }

@@ -94,4 +94,9 @@ public class CalculatorTest {
     void addMultiCharDelimiterReturnsSum() {
         assertEquals(66, calculator.add("//[***]\n11***22***33"));
     }
+
+    @Test
+    void addMultipleDelimitersReturnsSum() {
+        assertEquals(110, calculator.add("//[*][!!][r9r]\n11r9r22*hh*33!!44"));
+    }
 }
