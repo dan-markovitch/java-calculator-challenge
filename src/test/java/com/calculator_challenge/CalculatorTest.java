@@ -89,4 +89,9 @@ public class CalculatorTest {
     void addCustomDelimiterWithInvalidAndValidNumbersReturnsSum() {
         assertEquals(102, calculator.add("//,\n2,ff,100"));
     }
+
+    @Test
+    void addMultiCharDelimiterReturnsSum() {
+        assertEquals(66, calculator.add("//[***]\n11***22***33"));
+    }
 }

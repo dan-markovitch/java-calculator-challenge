@@ -1,5 +1,7 @@
 package com.calculator_challenge;
 
+import java.util.regex.Pattern;
+
 public class Calculator {
     private final InputProcessor processor;
     private final NumberCalculator numberCalculator;
@@ -17,11 +19,16 @@ public class Calculator {
         String delimiter = "[,\n]";
         String numbersPart = input;
 
-        // Check for single-character custom delimiter
+        // Check for custom delimiter
         if (input.startsWith("//")) {
             int newlineIndex = input.indexOf('\n');
-            if (newlineIndex != -1 && newlineIndex > 2) {
-                delimiter = input.substring(2, newlineIndex);
+            if (newlineIndex != -1) {
+                String delimiterPart = input.substring(2, newlineIndex);
+                if (delimiterPart.startsWith("[") && delimiterPart.endsWith("]")) {
+                    delimiter = Pattern.quote(delimiterPart.substring(1, delimiterPart.length() - 1));
+                } else {
+                    delimiter = Pattern.quote(delimiterPart);
+                }
                 numbersPart = input.substring(newlineIndex + 1);
             }
         }
