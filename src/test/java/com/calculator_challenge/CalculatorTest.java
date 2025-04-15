@@ -27,10 +27,8 @@ public class CalculatorTest {
     }
 
     @Test
-    void addNegativeNumbersThrowsException() {
-        var exception = assertThrows(IllegalArgumentException.class,
-                () -> calculator.add("4,-3"));
-        assertEquals("Negative numbers not allowed: -3", exception.getMessage());
+    void addNegativeNumbersReturnsSum() {
+        assertEquals(1, calculator.add("4,-3"));
     }
 
     @Test
@@ -44,9 +42,12 @@ public class CalculatorTest {
     }
 
     @Test
-    void addMoreThanTwoNumbersThrowsException() {
-        var exception = assertThrows(IllegalArgumentException.class,
-                () -> calculator.add("1,2,3"));
-        assertEquals("Cannot add more than 2 numbers", exception.getMessage());
+    void addMultipleNumbersReturnsSum() {
+        assertEquals(78, calculator.add("1,2,3,4,5,6,7,8,9,10,11,12"));
+    }
+
+    @Test
+    void addThreeNumbersReturnsSum() {
+        assertEquals(6, calculator.add("1,2,3"));
     }
 }
