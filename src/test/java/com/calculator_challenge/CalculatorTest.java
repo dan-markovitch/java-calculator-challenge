@@ -23,19 +23,19 @@ public class CalculatorTest {
 
     @Test
     void addTwoNumbersReturnsSum() {
-        assertEquals(5001, calculator.add("1,5000"));
+        assertEquals(3, calculator.add("1,2")); // Updated to use valid numbers
     }
 
     @Test
     void addNegativeNumbersThrowsException() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(IllegalArgumentException.class,
                 () -> calculator.add("4,-3"));
         assertEquals("Negative numbers not allowed: -3", exception.getMessage());
     }
 
     @Test
     void addMultipleNegativesThrowsException() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(IllegalArgumentException.class,
                 () -> calculator.add("1,-2,-3"));
         assertEquals("Negative numbers not allowed: -2, -3", exception.getMessage());
     }
@@ -68,5 +68,15 @@ public class CalculatorTest {
     @Test
     void addMixedDelimitersReturnsSum() {
         assertEquals(10, calculator.add("1\n2\n3,4"));
+    }
+
+    @Test
+    void addNumberGreaterThan1000ReturnsSumExcludingLarge() {
+        assertEquals(8, calculator.add("2,1001,6"));
+    }
+
+    @Test
+    void addMultipleLargeNumbersReturnsSumExcludingLarge() {
+        assertEquals(2, calculator.add("2,1001,1002"));
     }
 }

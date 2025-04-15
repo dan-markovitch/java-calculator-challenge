@@ -25,7 +25,7 @@ public class InputProcessorTest {
     void parseNumbersTwoNumbersReturnsList() {
         var negatives = new StringBuilder();
         var result = processor.parseNumbers(new String[]{"1", "5000"}, negatives);
-        assertEquals(List.of(1, 5000), result);
+        assertEquals(List.of(1, 0), result); // Updated for >1000 rule
     }
 
     @Test
@@ -37,9 +37,38 @@ public class InputProcessorTest {
     }
 
     @Test
+    void parseNumbersMultipleNegativesAppendsToNegatives() {
+        var negatives = new StringBuilder();
+        var result = processor.parseNumbers(new String[]{"1", "-2", "-3"}, negatives);
+        assertEquals(List.of(1), result);
+        assertEquals("-2, -3", negatives.toString());
+    }
+
+    @Test
     void parseNumbersInvalidNumberReturnsZero() {
         var negatives = new StringBuilder();
         var result = processor.parseNumbers(new String[]{"5", "tytyt"}, negatives);
         assertEquals(List.of(5, 0), result);
+    }
+
+    @Test
+    void parseNumbersMultipleNumbersReturnsList() {
+        var negatives = new StringBuilder();
+        var result = processor.parseNumbers(new String[]{"1", "2", "3"}, negatives);
+        assertEquals(List.of(1, 2, 3), result);
+    }
+
+    @Test
+    void parseNumbersLargeNumberInMultipleNumbersReturnsZero() {
+        var negatives = new StringBuilder();
+        var result = processor.parseNumbers(new String[]{"2", "1001", "6"}, negatives);
+        assertEquals(List.of(2, 0, 6), result);
+    }
+
+    @Test
+    void parseNumbersMixedLargeAndValidInMultipleNumbersReturnsList() {
+        var negatives = new StringBuilder();
+        var result = processor.parseNumbers(new String[]{"2", "1001", "1002"}, negatives);
+        assertEquals(List.of(2, 0, 0), result);
     }
 }

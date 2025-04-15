@@ -14,6 +14,8 @@ public class InputProcessor {
                         negatives.append(", ");
                     }
                     negatives.append(value);
+                } else if (value > 1000) {
+                    parsed.add(0);
                 } else {
                     parsed.add(value);
                 }
