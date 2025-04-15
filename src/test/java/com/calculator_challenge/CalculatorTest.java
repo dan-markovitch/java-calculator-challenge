@@ -27,8 +27,17 @@ public class CalculatorTest {
     }
 
     @Test
-    void addNegativeNumbersReturnsSum() {
-        assertEquals(1, calculator.add("4,-3"));
+    void addNegativeNumbersThrowsException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> calculator.add("4,-3"));
+        assertEquals("Negative numbers not allowed: -3", exception.getMessage());
+    }
+
+    @Test
+    void addMultipleNegativesThrowsException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> calculator.add("1,-2,-3"));
+        assertEquals("Negative numbers not allowed: -2, -3", exception.getMessage());
     }
 
     @Test
